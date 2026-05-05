@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRYM Club — Centrum Treningu Świadomego, Kraków</title>
+<meta name="description" content="W PRYM każdy plan zaczyna się od diagnozy, nie od założeń. Centrum Treningu Świadomego w Juvenii, Kraków.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:          #F4F0E8;
+  --bg-alt:      #EDE9DE;
+  --bg-dark:     #1A1815;
+  --text:        #1A1815;
+  --text-mid:    #5C5750;
+  --text-muted:  #9A9286;
+  --accent:      #8C7B5E;
+  --line:        #D8D3C6;
+  --card-bg:     #EDEAD2;
+  --white:       #FDFCF8;
+  --error:       #9B3A2F;
+  --error-bg:    #FDF0EE;
+  --success:     #2F6B45;
+  --success-bg:  #EEF6F1;
+
+  --serif: 'Inter', system-ui, sans-serif;
+  --sans:  'Inter', system-ui, sans-serif;
+
+  --r: 3px;
+  --r-card: 6px;
+  --max: 1080px;
+  --gutter: clamp(24px, 5vw, 64px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .025;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3 { font-family: var(--sans); font-weight: 600; line-height: 1.15; letter-spacing: -.02em; }
+
+/* ── LAYOUT ── */
+.container { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ── FADE IN ── */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: .1s; }
+.reveal-d2 { transition-delay: .2s; }
+.reveal-d3 { transition-delay: .3s; }
+
+/* ════════════════════════════════
+   HEADER
+════════════════════════════════ */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 18px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background .3s, border-color .3s;
+  border-bottom: 1px solid transparent;
+}
+.site-header.scrolled {
+  background: rgba(244,240,232,.95);
+  backdrop-filter: blur(8px);
+  border-color: var(--line);
+}
+.site-header.hero-dark {
+  background: transparent;
+}
+
+.logo {
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: var(--white);
+  text-decoration: none;
+  transition: color .3s;
+}
+.site-header.scrolled .logo { color: var(--text); }
+
+.btn {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .03em;
+  padding: 10px 22px;
+  border-radius: var(--r);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .2s;
+  border: none;
+}
+.btn-primary {
+  background: var(--text);
+  color: var(--white);
+}
+.btn-primary:hover { background: #2C2925; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,.5);
+}
+.btn-outline:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.8); }
+
+.site-header.scrolled .btn-outline {
+  color: var(--text);
+  border-color: var(--line);
+}
+.site-header.scrolled .btn-outline:hover { background: var(--bg-alt); }
+
+/* ════════════════════════════════
+   HERO
+════════════════════════════════ */
+.hero {
+  min-height: 100svh;
+  background: var(--bg-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, #2E2820 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, #1A2818 0%, transparent 60%),
+    linear-gradient(160deg, #0D0C0A 0%, #1E1B15 50%, #141210 100%);
+}
+
+/* Subtle abstract lines suggesting anatomy/movement */
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: .07;
+}
+.hero-lines svg { width: 100%; height: 100%; }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 var(--gutter) clamp(60px, 10vh, 100px);
+  max-width: var(--max);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: rgba(255,255,255,.3);
+}
+
+.hero h1 {
+  font-size: clamp(40px, 6.5vw, 82px);
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.08;
+  max-width: 720px;
+  margin-bottom: 28px;
+  letter-spacing: -.03em;
+}
+
+.hero h1 em {
+  font-style: normal;
+  font-weight: 300;
+  color: rgba(255,255,255,.55);
+}
+
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: rgba(255,255,255,.6);
+  max-width: 480px;
+  line-height: 1.65;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.hero-cta-group { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+.hero-microcopy {
+  font-size: 13px;
+  color: rgba(255,255,255,.35);
+  font-style: italic;
+}
+
+/* ════════════════════════════════
+   TRUST BAR
+════════════════════════════════ */
+.trust-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 18px var(--gutter);
+}
+.trust-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-mid);
+  font-weight: 400;
+}
+.trust-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.trust-icon svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+.trust-label { font-weight: 500; color: var(--text); display: block; font-size: 13px; }
+.trust-desc { color: var(--text-muted); font-size: 12px; }
+
+/* ════════════════════════════════
+   SECTIONS — COMMON
+════════════════════════════════ */
+section { padding: clamp(72px, 10vw, 120px) var(--gutter); }
+section.alt { background: var(--bg-alt); }
+section.dark { background: var(--bg-dark); color: var(--white); }
+
+.section-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+section.dark .section-tag { color: rgba(255,255,255,.4); }
+
+.section-h {
+  font-size: clamp(32px, 4.5vw, 54px);
+  margin-bottom: 24px;
+  letter-spacing: -.01em;
+}
+.section-lead {
+  font-size: clamp(16px, 1.8vw, 19px);
+  color: var(--text-mid);
+  max-width: 580px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+section.dark .section-lead { color: rgba(255,255,255,.55); }
+
+/* ════════════════════════════════
+   FILOZOFIA
+════════════════════════════════ */
+.filozofia-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(40px, 6vw, 100px);
+  align-items: start;
+}
+.filozofia-body {
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: var(--text-mid);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.filozofia-body p + p { margin-top: 18px; }
+.filozofia-standout {
+  font-family: var(--sans);
+  font-size: clamp(18px, 2vw, 22px);
+  color: var(--text);
+  line-height: 1.4;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  font-weight: 500;
+  letter-spacing: -.01em;
+}
+
+/* ════════════════════════════════
+   FILARY
+════════════════════════════════ */
+.filary-inner { max-width: var(--max); margin: 0 auto; }
+.filary-header { margin-bottom: 48px; }
+.filary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.filar-card {
+  background: var(--card-bg);
+  border-radius: var(--r-card);
+  padding: clamp(24px, 3vw, 40px);
+  position: relative;
+  transition: transform .2s, box-shadow .2s;
+}
+.filar-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+.filar-num {
+  font-family: var(--serif);
+  font-size: 64px;
+  font-weight: 400;
+  color: rgba(26,24,21,.08);
+  line-height: 1;
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  user-select: none;
+}
+.filar-title {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  margin-bottom: 14px;
+  padding-right: 40px;
+}
+.filar-body {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+/* ════════════════════════════════
+   DLA KOGO
+════════════════════════════════ */
+.dlakogo-inner { max-width: var(--max); margin: 0 auto; }
+.dlakogo-header { margin-bottom: 48px; }
+.dlakogo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.persona-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: clamp(28px, 3.5vw, 44px);
+  transition: border-color .2s;
+}
+.persona-card:hover { border-color: var(--accent); }
+.persona-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.persona-title {
+  font-family: var(--sans);
+  font-size: clamp(17px, 1.8vw, 20px);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.persona-body {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.75;
+  font-weight: 300;
+}
+.dlakogo-connector {
+  margin-top: 36px;
+  font-family: var(--sans);
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: var(--text-mid);
+  font-weight: 300;
+  text-align: center;
+}
+
+/* ════════════════════════════════
+   MIEJSCE
+════════════════════════════════ */
+.miejsce-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+.miejsce-img {
+  aspect-ratio: 4/5;
+  background: #1A1815;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  position: relative;
+}
+.miejsce-img-inner {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 30%, #2A2820 0%, #0F0E0B 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.miejsce-img-label {
+  font-family: var(--serif);
+  font-size: 13px;
+  color: rgba(255,255,255,.2);
+  font-style: italic;
+  text-align: center;
+  padding: 0 24px;
+}
+.miejsce-year {
+  font-family: var(--sans);
+  font-size: 72px;
+  font-weight: 700;
+  color: rgba(255,255,255,.06);
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+.miejsce-content { display: flex; flex-direction: column; gap: 24px; }
+.miejsce-body {
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: var(--text-mid);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.miejsce-body p + p { margin-top: 16px; }
+.miejsce-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.miejsce-detail-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: var(--text-mid);
+}
+.miejsce-detail-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+/* ════════════════════════════════
+   FORMULARZ
+════════════════════════════════ */
+.form-section {
+  background: var(--bg-dark);
+  color: var(--white);
+  padding: clamp(72px, 10vw, 120px) var(--gutter);
+}
+.form-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 7vw, 100px);
+  align-items: start;
+}
+.form-left { }
+.form-left .section-h { color: var(--white); }
+.form-intro {
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: rgba(255,255,255,.55);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-top: 20px;
+}
+.form-intro p + p { margin-top: 14px; }
+.form-features {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form-feature {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.form-feature-icon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.form-feature-icon svg { width: 16px; height: 16px; stroke: rgba(255,255,255,.5); fill: none; stroke-width: 1.5; }
+.form-feature-text { font-size: 14px; color: rgba(255,255,255,.5); padding-top: 6px; font-weight: 300; }
+.form-feature-text strong { color: rgba(255,255,255,.8); font-weight: 500; display: block; margin-bottom: 2px; }
+
+/* Form widget */
+.form-widget {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px;
+  padding: clamp(28px, 4vw, 44px);
+}
+
+.form-fields { display: flex; flex-direction: column; gap: 18px; }
+
+.field-group { display: flex; flex-direction: column; gap: 6px; }
+.field-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,.6);
+  letter-spacing: .03em;
+}
+.field-required { color: rgba(255,255,255,.3); margin-left: 2px; }
+
+.field-input,
+.field-textarea {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: var(--r);
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 300;
+  transition: border-color .2s, background .2s;
+  outline: none;
+  width: 100%;
+}
+.field-input { height: 48px; padding: 0 16px; }
+.field-textarea { padding: 14px 16px; resize: vertical; min-height: 90px; line-height: 1.6; }
+.field-input::placeholder, .field-textarea::placeholder { color: rgba(255,255,255,.25); }
+.field-input:focus, .field-textarea:focus {
+  border-color: rgba(255,255,255,.4);
+  background: rgba(255,255,255,.1);
+}
+.field-input.error { border-color: #C0554A; background: rgba(192,85,74,.1); }
+.field-error-msg {
+  font-size: 12px;
+  color: #D4756B;
+  display: none;
+  margin-top: 2px;
+}
+.field-error-msg.visible { display: block; }
+
+.form-submit {
+  width: 100%;
+  height: 52px;
+  margin-top: 8px;
+  font-size: 15px;
+  border-radius: var(--r);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-weight: 500;
+  background: var(--white);
+  color: var(--text);
+  border: none;
+  transition: all .2s;
+  letter-spacing: .01em;
+}
+.form-submit:hover { background: #F0ECE0; transform: translateY(-1px); }
+.form-submit:active { transform: translateY(0); }
+.form-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.form-microcopy {
+  font-size: 12px;
+  color: rgba(255,255,255,.3);
+  line-height: 1.6;
+  margin-top: 14px;
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 24px 0;
+}
+.form-success.visible { display: block; }
+.form-success-icon {
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-success-icon svg { width: 24px; height: 24px; stroke: rgba(255,255,255,.7); fill: none; stroke-width: 1.5; }
+.form-success h3 {
+  font-family: var(--sans);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.form-success p {
+  font-size: 15px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.7;
+  font-weight: 300;
+  max-width: 340px;
+  margin: 0 auto;
+}
+.form-success .signoff {
+  margin-top: 24px;
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(255,255,255,.35);
+}
+
+/* ════════════════════════════════
+   ZESPÓŁ
+════════════════════════════════ */
+.zespol-inner { max-width: var(--max); margin: 0 auto; }
+.zespol-header { margin-bottom: 48px; }
+.zespol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.osoba-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
+}
+.osoba-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.osoba-photo {
+  aspect-ratio: 4/3;
+  background: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+}
+.osoba-photo-initial {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: rgba(255,255,255,.35);
+  letter-spacing: -.01em;
+}
+.osoba-photo-hint { font-size: 11px; color: rgba(255,255,255,.18); font-style: italic; }
+.osoba-body { padding: clamp(20px, 3vw, 32px); }
+.osoba-role {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.osoba-name {
+  font-size: clamp(19px, 2vw, 23px);
+  font-weight: 600;
+  letter-spacing: -.02em;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+.osoba-desc {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+.osoba-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.osoba-tag {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-mid);
+  background: var(--bg-alt);
+  border-radius: 2px;
+  padding: 4px 9px;
+}
+@media (max-width: 700px) {
+  .zespol-grid { grid-template-columns: 1fr; }
+}
+
+/* ════════════════════════════════
+   FOOTER
+════════════════════════════════ */
+.site-footer {
+  background: #141210;
+  padding: clamp(40px, 6vw, 64px) var(--gutter) 32px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: start;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.footer-brand-name {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -.01em;
+}
+.footer-brand-tagline {
+  font-size: 12px;
+  color: rgba(255,255,255,.3);
+  margin-top: 4px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.footer-contact { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.footer-contact-item {
+  font-size: 13px;
+  color: rgba(255,255,255,.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-contact-item:hover { color: rgba(255,255,255,.7); }
+.footer-contact-item svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+.footer-bottom {
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-address {
+  font-size: 12px;
+  color: rgba(255,255,255,.25);
+  line-height: 1.6;
+}
+.footer-legal {
+  font-size: 12px;
+  color: rgba(255,255,255,.2);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.footer-legal a { color: inherit; text-decoration: none; transition: color .2s; }
+.footer-legal a:hover { color: rgba(255,255,255,.4); }
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+@media (max-width: 900px) {
+  .filozofia-inner,
+  .miejsce-inner,
+  .form-inner { grid-template-columns: 1fr; }
+  .miejsce-img { aspect-ratio: 16/9; order: -1; }
+  .filozofia-body { order: -1; }
+}
+@media (max-width: 700px) {
+  .filary-grid { grid-template-columns: 1fr; }
+  .dlakogo-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-contact { align-items: flex-start; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .hero-cta-group { flex-direction: column; align-items: flex-start; }
+}
+
+/* ── Scroll-based header state ── */
+.header-dark-zone .logo { color: var(--white); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header hero-dark" id="site-header">
+  <a href="#" class="logo">PRYM Club</a>
+  <a href="#diagnoza" class="btn btn-outline">Umów diagnozę</a>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-lines" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <circle cx="900" cy="300" r="320" fill="none" stroke="white" stroke-width=".5"/>
+      <circle cx="900" cy="300" r="220" fill="none" stroke="white" stroke-width=".3"/>
+      <circle cx="900" cy="300" r="120" fill="none" stroke="white" stroke-width=".2"/>
+      <line x1="580" y1="0" x2="1440" y2="600" stroke="white" stroke-width=".4"/>
+      <line x1="0" y1="200" x2="700" y2="900" stroke="white" stroke-width=".3"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">Centrum Treningu Świadomego · Kraków, Juvenia</div>
+    <h1 class="reveal reveal-d1">
+      Twoje ciało<br>wie więcej<br>niż <em>myślisz.</em>
+    </h1>
+    <p class="hero-sub reveal reveal-d2">
+      W PRYM każdy plan zaczyna się od diagnozy, nie od założeń.
+    </p>
+    <div class="hero-cta-group reveal reveal-d3">
+      <a href="#diagnoza" class="btn btn-primary">Umów diagnozę wstępną</a>
+      <span class="hero-microcopy">Pierwsze spotkanie to rozmowa — nie ćwiczenia.</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item reveal">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      </div>
+      <div>
+        <span class="trust-label">Kraków, Błonia</span>
+        <span class="trust-desc">ul. Na Błoniach 7, Kraków</span>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-d1">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div>
+        <span class="trust-label">Juvenia — od 1906 r.</span>
+        <span class="trust-desc">Tradycja krakowskiego sportu</span>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-d2">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div>
+        <span class="trust-label">Diagnoza przed treningiem</span>
+        <span class="trust-desc">Rozumienie poprzedza działanie</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILOZOFIA -->
+<section>
+  <div class="filozofia-inner">
+    <div class="reveal">
+      <div class="section-tag">Filozofia</div>
+      <h2 class="section-h">Większość planów powstaje zanim ktokolwiek zapyta o twoje ciało.</h2>
+      <div class="filozofia-standout">
+        Diagnoza przed treningiem to nie ostrożność. To precyzja.
+      </div>
+    </div>
+    <div class="filozofia-body reveal reveal-d1">
+      <p>W PRYM zaczynamy od pytania.</p>
+      <p>Nie od celów. Nie od grafiku. Od historii ciała które przez lata pracowało dla ciebie — i zaczyna dawać sygnały których nie warto ignorować.</p>
+      <p>Ból pleców to rzadko problem pleców. Napięty bark to rzadko problem barku. Ciało kompensuje. Przesuwa ciężar. Sygnalizuje w ostatnim miejscu, nie w pierwszym.</p>
+      <p>Dopiero kiedy rozumiemy skąd pochodzi problem — możemy zaproponować ruch, który naprawdę coś zmienia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRZY FILARY -->
+<section class="alt">
+  <div class="filary-inner">
+    <div class="filary-header reveal">
+      <div class="section-tag">Nasz proces</div>
+      <h2 class="section-h">Jeden proces.<br>Trzy perspektywy.</h2>
+    </div>
+    <div class="filary-grid">
+      <div class="filar-card reveal">
+        <div class="filar-num">01</div>
+        <h3 class="filar-title">Diagnoza</h3>
+        <p class="filar-body">Zanim zaproponujemy jakikolwiek ruch, rozumiemy skąd boli, dlaczego boli i co to mówi o reszcie ciała. Diagnoza jest punktem wyjścia — nie opcją dodatkową.</p>
+      </div>
+      <div class="filar-card reveal reveal-d1">
+        <div class="filar-num">02</div>
+        <h3 class="filar-title">Fizjoterapia</h3>
+        <p class="filar-body">Leczenie epizodu to za mało. Budujemy sprawność która zapobiega następnemu. Ruch jako kontynuacja rozumienia — nie jako osobna decyzja.</p>
+      </div>
+      <div class="filar-card reveal reveal-d2">
+        <div class="filar-num">03</div>
+        <h3 class="filar-title">Trening</h3>
+        <p class="filar-body">Plan który uwzględnia historię ciała, nie tylko cele. Każda sesja ma sens — bo wiemy po co. Postęp który można zmierzyć, nie poczuć.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DLA KOGO -->
+<section>
+  <div class="dlakogo-inner">
+    <div class="dlakogo-header reveal">
+      <div class="section-tag">Dla kogo</div>
+      <h2 class="section-h">Rozpoznasz się<br>w jednym z dwóch.</h2>
+    </div>
+    <div class="dlakogo-grid">
+      <div class="persona-card reveal">
+        <div class="persona-label">Persona A</div>
+        <h3 class="persona-title">Aktywny zawodowo, pierwsze sygnały ciała</h3>
+        <p class="persona-body">Pracujesz dużo, siedzisz długo. Plecy, barki, kolano — coś zaczyna dawać znać o sobie. Nie szukasz siłowni z karnetem. Szukasz miejsca które zapyta o historię zanim zaproponuje plan.</p>
+      </div>
+      <div class="persona-card reveal reveal-d1">
+        <div class="persona-label">Persona B</div>
+        <h3 class="persona-title">Trenujesz, ale coś nie gra</h3>
+        <p class="persona-body">Jesteś aktywny. Ale wracasz z urazami, nie robisz postępów albo czujesz że trenujesz bez głowy. Chcesz wiedzieć co twoje ciało naprawdę potrzebuje — nie co zakłada kolejny plan z internetu.</p>
+      </div>
+    </div>
+    <p class="dlakogo-connector reveal">Jeśli chcesz trenować świadomie — jesteś we właściwym miejscu.</p>
+  </div>
+</section>
+
+<!-- MIEJSCE -->
+<section class="alt">
+  <div class="miejsce-inner">
+    <div class="miejsce-img reveal">
+      <div class="miejsce-img-inner">
+        <div class="miejsce-year">1906</div>
+        <p class="miejsce-img-label">zdjęcie Juvenii / Błoń / przestrzeni PRYM</p>
+      </div>
+    </div>
+    <div class="miejsce-content reveal reveal-d1">
+      <div>
+        <div class="section-tag">Miejsce</div>
+        <h2 class="section-h">Nie siłownia.<br>Nie gabinet.<br>Coś pomiędzy.</h2>
+      </div>
+      <div class="miejsce-body">
+        <p>PRYM Club mieści się w Juvenii — jednym z najstarszych klubów sportowych Krakowa. Miejscu gdzie sport ma historię, a nie tylko cennik.</p>
+        <p>Jesteśmy częścią tradycji która trwa od 1906 roku. Błonia po jednej stronie. Rugby po drugiej. I przestrzeń w której trening świadomy ma sens.</p>
+      </div>
+      <div class="miejsce-detail">
+        <div class="miejsce-detail-item">
+          <span class="miejsce-detail-dot"></span>
+          <span>ul. Na Błoniach 7, Kraków</span>
+        </div>
+        <div class="miejsce-detail-item">
+          <span class="miejsce-detail-dot"></span>
+          <span>W Juvenii — klub sportowy od 1906 r.</span>
+        </div>
+        <div class="miejsce-detail-item">
+          <span class="miejsce-detail-dot"></span>
+          <span>Dojazd: tramwaj linie 15, 18 (przystanek Cracovii)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZESPÓŁ -->
+<section>
+  <div class="zespol-inner">
+    <div class="zespol-header reveal">
+      <div class="section-tag">Zespół</div>
+      <h2 class="section-h">Pytają zanim<br>zaczną działać.</h2>
+      <p class="section-lead" style="margin-top:16px;">Marcin i Sebastian to nie trenerzy którzy dają plan na wejściu. To specjaliści którzy najpierw słuchają.</p>
+    </div>
+    <div class="zespol-grid">
+
+      <div class="osoba-card reveal">
+        <div class="osoba-photo">
+          <div class="osoba-photo-initial">SH</div>
+          <p class="osoba-photo-hint">zdjęcie Sebastiana</p>
+        </div>
+        <div class="osoba-body">
+          <div class="osoba-role">Fizjoterapeuta · Trener Personalny</div>
+          <h3 class="osoba-name">Sebastian Stoch</h3>
+          <p class="osoba-desc">Absolwent AWF. Łączy wiedzę fizjoterapeutyczną z praktyką trenerską — diagnozuje zanim zaproponuje pierwszy ruch. Specjalizuje się w pracy z ciałem które przez lata kompensowało i sygnalizuje zmęczenie.</p>
+          <div class="osoba-tags">
+            <span class="osoba-tag">Fizjoterapia</span>
+            <span class="osoba-tag">Trening siłowy</span>
+            <span class="osoba-tag">TRX</span>
+            <span class="osoba-tag">Kettlebells</span>
+            <span class="osoba-tag">Crossfit</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="osoba-card reveal reveal-d1">
+        <div class="osoba-photo">
+          <div class="osoba-photo-initial">MH</div>
+          <p class="osoba-photo-hint">zdjęcie Marcina</p>
+        </div>
+        <div class="osoba-body">
+          <div class="osoba-role">Trener Personalny · Specjalista diety</div>
+          <h3 class="osoba-name">Marcin Hajek</h3>
+          <p class="osoba-desc">Specjalista treningu i diety z oceną 5.0 na Booksy. Znany z wyprowadzania klientów z kontuzji bez operacji — przez odpowiednio dobrane ćwiczenia i rozumienie przyczyny, nie objawu.</p>
+          <div class="osoba-tags">
+            <span class="osoba-tag">Trening personalny</span>
+            <span class="osoba-tag">Rehabilitacja ruchowa</span>
+            <span class="osoba-tag">Dieta</span>
+            <span class="osoba-tag">Konsultacje</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARZ -->
+<section class="form-section" id="diagnoza">
+  <div class="form-inner">
+    <div class="form-left reveal">
+      <div class="section-tag">Zacznij od rozmowy</div>
+      <h2 class="section-h" style="color:var(--white)">Zacznij od<br>jednej rozmowy.</h2>
+      <div class="form-intro">
+        <p>Diagnoza wstępna to pierwsze spotkanie w PRYM. Opowiadasz nam o swoim ciele — nie o celach. My słuchamy, zadajemy pytania i proponujemy co dalej.</p>
+        <p>Bez zobowiązań. Bez gotowego planu na wejściu.</p>
+      </div>
+      <div class="form-features">
+        <div class="form-feature">
+          <div class="form-feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="form-feature-text">
+            <strong>45 minut</strong>
+            Pierwsze spotkanie — czas na rozmowę o historii ciała
+          </div>
+        </div>
+        <div class="form-feature">
+          <div class="form-feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10z"/></svg>
+          </div>
+          <div class="form-feature-text">
+            <strong>Bez zobowiązań</strong>
+            Wychodząc — wiesz więcej o swoim ciele niż przed wejściem
+          </div>
+        </div>
+        <div class="form-feature">
+          <div class="form-feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="form-feature-text">
+            <strong>Kontakt w 24 h</strong>
+            Odezwiemy się żeby umówić termin
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-widget reveal reveal-d1">
+      <div id="form-container">
+        <form id="diagnoza-form" novalidate>
+          <div class="form-fields">
+            <div class="field-group">
+              <label class="field-label" for="imie">Imię i nazwisko<span class="field-required">*</span></label>
+              <input class="field-input" type="text" id="imie" name="imie" placeholder="Jan Kowalski" autocomplete="name">
+              <span class="field-error-msg" id="imie-error">Podaj imię i nazwisko, żebyśmy wiedzieli jak się do ciebie zwrócić.</span>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="telefon">Telefon<span class="field-required">*</span></label>
+              <input class="field-input" type="tel" id="telefon" name="telefon" placeholder="+48 600 000 000" autocomplete="tel">
+              <span class="field-error-msg" id="telefon-error">Sprawdź numer — powinien mieć 9 cyfr.</span>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="info">Krótko — co cię sprowadza? <span style="opacity:.5;font-weight:300;">(opcjonalnie)</span></label>
+              <textarea class="field-textarea" id="info" name="info" placeholder="np. ból pleców od kilku miesięcy, wracam z kontuzji kolana..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="form-submit">Umów diagnozę wstępną</button>
+          <p class="form-microcopy">Pierwsze spotkanie trwa 45 minut. Skontaktujemy się w ciągu 24 godzin żeby ustalić termin. Nie pytamy o cel — pytamy o ciało.</p>
+        </form>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <div class="form-success-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Gotowe.</h3>
+        <p>Skontaktujemy się w ciągu 24 godzin żeby umówić termin diagnozy. Pierwsze spotkanie trwa 45 minut.</p>
+        <p class="signoff">Do zobaczenia w PRYM.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">PRYM Club</div>
+        <div class="footer-brand-tagline">Centrum Treningu Świadomego</div>
+      </div>
+      <div class="footer-contact">
+        <a href="tel:+48600000000" class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          +48 xxx xxx xxx
+        </a>
+        <a href="mailto:kontakt@prymclub.pl" class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          kontakt@prymclub.pl
+        </a>
+        <a href="https://instagram.com/prymclub" class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          @prymclub
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-address">
+        ul. Na Błoniach 7, 30-011 Kraków (Juvenia)<br>
+        Tramwaj 15, 18 — przystanek Cracovii
+      </div>
+      <div class="footer-legal">
+        <span>© 2026 PRYM Club</span>
+        <a href="#">Polityka prywatności</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Scroll reveal ── */
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => io.observe(el));
+
+/* ── Sticky header ── */
+const header = document.getElementById('site-header');
+window.addEventListener('scroll', () => {
+  const past = window.scrollY > 60;
+  header.classList.toggle('scrolled', past);
+  header.classList.toggle('hero-dark', !past);
+}, { passive: true });
+
+/* ── Form validation ── */
+const form = document.getElementById('diagnoza-form');
+const successEl = document.getElementById('form-success');
+const formContainer = document.getElementById('form-container');
+
+function validateImie(val) { return val.trim().length >= 2; }
+function validateTelefon(val) {
+  const digits = val.replace(/\D/g, '').replace(/^48/, '');
+  return digits.length >= 9;
+}
+
+function setError(inputId, errorId, show) {
+  const input = document.getElementById(inputId);
+  const err = document.getElementById(errorId);
+  input.classList.toggle('error', show);
+  err.classList.toggle('visible', show);
+}
+
+document.getElementById('imie').addEventListener('blur', function() {
+  setError('imie', 'imie-error', !validateImie(this.value));
+});
+document.getElementById('imie').addEventListener('input', function() {
+  if (this.classList.contains('error') && validateImie(this.value)) {
+    setError('imie', 'imie-error', false);
+  }
+});
+document.getElementById('telefon').addEventListener('blur', function() {
+  setError('telefon', 'telefon-error', !validateTelefon(this.value));
+});
+document.getElementById('telefon').addEventListener('input', function() {
+  if (this.classList.contains('error') && validateTelefon(this.value)) {
+    setError('telefon', 'telefon-error', false);
+  }
+});
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const imieVal = document.getElementById('imie').value;
+  const telVal = document.getElementById('telefon').value;
+  let valid = true;
+  if (!validateImie(imieVal)) { setError('imie', 'imie-error', true); valid = false; }
+  if (!validateTelefon(telVal)) { setError('telefon', 'telefon-error', true); valid = false; }
+  if (!valid) return;
+
+  const btn = form.querySelector('.form-submit');
+  btn.disabled = true;
+  btn.textContent = 'Wysyłanie...';
+
+  setTimeout(() => {
+    formContainer.style.display = 'none';
+    successEl.classList.add('visible');
+  }, 900);
+});
+</script>
+</body>
+</html>
